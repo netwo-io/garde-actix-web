@@ -52,6 +52,8 @@
 //! | `0.16`        | `0.12`           | `0.3.x`                 |
 //! | `0.17`        | `0.12`           | `0.4.x`                 |
 //! | `0.18`        | `0.12`           | `0.5.x`, `0.6.x`        |
+//! | `0.18`        | `0.13`           | `0.7.x`                 |
+//! | `0.19`        | `0.13`           | `0.8.x`                 |
 
 #![forbid(unsafe_code)]
 
@@ -72,7 +74,7 @@ where
     .or_else(|| req.app_data::<Data<T::Context>>().map(|d| d.as_ref()));
 
   match context {
-    None => data.validate(&T::Context::default()).map(|_| data).map_err(Into::into),
-    Some(ctx) => data.validate(ctx).map(|_| data).map_err(Into::into),
+    None => data.validate().map(|_| data).map_err(Into::into),
+    Some(ctx) => data.validate_with(ctx).map(|_| data).map_err(Into::into),
   }
 }

@@ -24,8 +24,8 @@ Actix-web wrapper for [garde](https://github.com/jprochazk/garde), a Rust valida
 
 ```toml
 [dependencies]
-garde = "0.18"
-garde-actix-web = "0.7"
+garde = "0.19"
+garde-actix-web = "0.8"
 ```
 
 ### Usage example
@@ -55,10 +55,6 @@ fn test(id: Path<MyStruct>) -> HttpResponse {
   todo!()
 }
 ```
-
-⚠️ When using `garde` [custom validation](https://github.com/jprochazk/garde#custom-validation), the `Context` type
-needs to implement `Default` which is not required by `garde`.
-
 Context needs to be provided through actix's `data` or `app_data`, if not found default will be used instead.
 
 ### Feature flags
@@ -77,6 +73,7 @@ Context needs to be provided through actix's `data` or `app_data`, if not found 
 | `0.17`        | `0.12`           | `0.4.x`                 |
 | `0.18`        | `0.12`           | `0.5.x`, `0.6.x`        |
 | `0.18`        | `0.13`           | `0.7.x`                 |
+| `0.19`        | `0.13`           | `0.8.x`                 |
 
 ### About us
 
