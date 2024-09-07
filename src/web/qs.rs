@@ -44,9 +44,7 @@ where
     let qs__config = req.app_data::<QsQueryConfig>();
     let error_handler = qs__config.and_then(|c| c.err_handler.clone());
     let default_qs_config = Config::default();
-    let qs_config = qs__config
-      .map(|config| &config.qs_config)
-      .unwrap_or(&default_qs_config);
+    let qs_config = qs__config.map(|config| &config.qs_config).unwrap_or(&default_qs_config);
 
     qs_config
       .deserialize_str::<T>(req.query_string())
