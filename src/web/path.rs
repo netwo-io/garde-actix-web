@@ -133,11 +133,11 @@ mod test {
     Ok(())
   }
 
-  async fn test_handler(_query: Path<PathData>) -> HttpResponse {
+  async fn test_handler(_: Path<PathData>) -> HttpResponse {
     HttpResponse::Ok().finish()
   }
 
-  async fn test_handler_with_context(_query: Path<PathDataWithContext>) -> HttpResponse {
+  async fn test_handler_with_context(_: Path<PathDataWithContext>) -> HttpResponse {
     HttpResponse::Ok().finish()
   }
 

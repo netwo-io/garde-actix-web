@@ -41,10 +41,10 @@ where
   #[inline]
   fn from_request(req: &HttpRequest, _: &mut Payload) -> Self::Future {
     let req_copy = req.clone();
-    let qs__config = req.app_data::<QsQueryConfig>();
-    let error_handler = qs__config.and_then(|c| c.err_handler.clone());
+    let qs_config = req.app_data::<QsQueryConfig>();
+    let error_handler = qs_config.and_then(|c| c.err_handler.clone());
     let default_qs_config = Config::default();
-    let qs_config = qs__config.map(|config| &config.qs_config).unwrap_or(&default_qs_config);
+    let qs_config = qs_config.map(|config| &config.qs_config).unwrap_or(&default_qs_config);
 
     qs_config
       .deserialize_str::<T>(req.query_string())
@@ -221,7 +221,7 @@ mod test {
   }
 
   #[tokio::test]
-  async fn test_simple__validation() {
+  async fn test_simple_validation() {
     let app = init_service(App::new().service(resource("/").route(post().to(test_handler)))).await;
 
     let req = TestRequest::post().uri("/?age=24").to_request();
@@ -234,7 +234,7 @@ mod test {
   }
 
   #[tokio::test]
-  async fn test__validation_custom_config() {
+  async fn test_validation_custom_config() {
     let app = init_service(
       App::new()
         .app_data(
@@ -255,7 +255,7 @@ mod test {
   }
 
   #[tokio::test]
-  async fn test__validation_with_context() {
+  async fn test_validation_with_context() {
     let number_context = NumberContext { min: 25 };
     let app = init_service(
       App::new()
@@ -274,7 +274,7 @@ mod test {
   }
 
   #[tokio::test]
-  async fn test__validation_with_missing_context() {
+  async fn test_validation_with_missing_context() {
     let app = init_service(App::new().service(resource("/").route(post().to(test_handler_with_context)))).await;
 
     let req = TestRequest::post().uri("/?age=24").to_request();

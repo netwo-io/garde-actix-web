@@ -107,11 +107,11 @@ mod test {
     Ok(())
   }
 
-  async fn test_handler(_query: Query<QueryData>) -> HttpResponse {
+  async fn test_handler(_: Query<QueryData>) -> HttpResponse {
     HttpResponse::Ok().finish()
   }
 
-  async fn test_handler_with_context(_query: Query<QueryDataWithContext>) -> HttpResponse {
+  async fn test_handler_with_context(_: Query<QueryDataWithContext>) -> HttpResponse {
     HttpResponse::Ok().finish()
   }
 

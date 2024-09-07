@@ -185,11 +185,11 @@ mod test {
     Ok(())
   }
 
-  async fn test_handler(_query: Json<JsonData>) -> HttpResponse {
+  async fn test_handler(_: Json<JsonData>) -> HttpResponse {
     HttpResponse::Ok().finish()
   }
 
-  async fn test_handler_with_context(_query: Json<JsonDataWithContext>) -> HttpResponse {
+  async fn test_handler_with_context(_: Json<JsonDataWithContext>) -> HttpResponse {
     HttpResponse::Ok().finish()
   }
 
