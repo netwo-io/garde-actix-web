@@ -28,11 +28,14 @@ serde_urlencoded = "0.7"
 thiserror = "1.0"
 
 actix-web-lab = { version = "0.22", optional = true }
+form_urlencoded = { version = "1", optional = true }
+serde_html_form = { version = "0.2", optional = true }
+serde_path_to_error = { version = "0.1", optional = true }
 
 serde_qs = { version = "0.13", optional = true }
 
 [features]
-lab_query = ["dep:actix-web-lab"]
+lab_query = ["dep:actix-web-lab", "dep:form_urlencoded", "dep:serde_html_form", "dep:serde_path_to_error"]
 serde_qs = ["dep:serde_qs"]
 
 [dev-dependencies]

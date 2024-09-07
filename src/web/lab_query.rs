@@ -20,7 +20,12 @@ impl<T> Query<T> {
 
 impl<T: DeserializeOwned> Query<T> {
   pub fn from_query(query_str: &str) -> Result<Self, QueryPayloadError> {
-    actix_web_lab::extract::Query::from_query(query_str).map(|r: actix_web_lab::extract::Query<T>| Self(r.into_inner()))
+    let parser = form_urlencoded::parse(query_str.as_bytes());
+    let de = serde_html_form::Deserializer::new(parser);
+
+    serde_path_to_error::deserialize(de)
+      .map(Self)
+      .map_err(|err| QueryPayloadError::Deserialize(err.into_inner()))
   }
 }
 
