@@ -149,11 +149,11 @@ mod test {
     Ok(())
   }
 
-  async fn test_handler(_query: Form<FormData>) -> HttpResponse {
+  async fn test_handler(_: Form<FormData>) -> HttpResponse {
     HttpResponse::Ok().finish()
   }
 
-  async fn test_handler_with_context(_query: Form<FormDataWithContext>) -> HttpResponse {
+  async fn test_handler_with_context(_: Form<FormDataWithContext>) -> HttpResponse {
     HttpResponse::Ok().finish()
   }
 

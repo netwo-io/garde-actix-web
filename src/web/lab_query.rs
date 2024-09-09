@@ -4,6 +4,7 @@ use actix_web::dev::Payload;
 use actix_web::error::QueryPayloadError;
 use actix_web::{Error, FromRequest, HttpRequest};
 use actix_web_lab::__reexports::futures_util::future::LocalBoxFuture;
+use actix_web_lab::extract::QueryDeserializeError;
 use garde::Validate;
 use serde::de;
 use serde::de::DeserializeOwned;
@@ -19,7 +20,7 @@ impl<T> Query<T> {
 }
 
 impl<T: DeserializeOwned> Query<T> {
-  pub fn from_query(query_str: &str) -> Result<Self, QueryPayloadError> {
+  pub fn from_query(query_str: &str) -> Result<Self, QueryDeserializeError> {
     actix_web_lab::extract::Query::from_query(query_str).map(|r: actix_web_lab::extract::Query<T>| Self(r.into_inner()))
   }
 }
@@ -102,11 +103,11 @@ mod test {
     Ok(())
   }
 
-  async fn test_handler(_query: Query<QueryData>) -> HttpResponse {
+  async fn test_handler(_: Query<QueryData>) -> HttpResponse {
     HttpResponse::Ok().finish()
   }
 
-  async fn test_handler_with_context(_query: Query<QueryDataWithContext>) -> HttpResponse {
+  async fn test_handler_with_context(_: Query<QueryDataWithContext>) -> HttpResponse {
     HttpResponse::Ok().finish()
   }
 
