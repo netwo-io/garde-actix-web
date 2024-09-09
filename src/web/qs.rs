@@ -23,7 +23,7 @@ impl<T> QsQuery<T> {
 }
 
 impl<T: DeserializeOwned> QsQuery<T> {
-  pub fn from_(query_str: &str) -> Result<Self, QueryPayloadError> {
+  pub fn from_query(query_str: &str) -> Result<Self, QueryPayloadError> {
     serde_urlencoded::from_str::<T>(query_str)
       .map(Self)
       .map_err(QueryPayloadError::Deserialize)
