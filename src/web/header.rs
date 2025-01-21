@@ -72,7 +72,7 @@ mod test {
     fn parse<M: HttpMessage>(msg: &M) -> Result<Self, ParseError> {
       msg
         .headers()
-        .get(&Self::name())
+        .get(Self::name())
         .ok_or_else(|| ParseError::Header)
         .and_then(|v| v.to_str().map_err(|_| ParseError::Header))
         .and_then(|v| v.parse::<u8>().map_err(|_| ParseError::Header))

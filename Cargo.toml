@@ -4,14 +4,14 @@ description = "Actix-web garde wrapper"
 readme = "README.md"
 keywords = ["garde", "actix", "actix-web", "validation"]
 categories = ["web-programming"]
-version = "0.10.0"
+version = "0.11.0"
 
 authors = ["Netwo <oss@netwo.com>"]
 edition = "2021"
 repository = "https://github.com/netwo-io/garde-actix-web"
 documentation = "https://docs.rs/garde-actix-web/"
 license = "MIT"
-rust-version = "1.76"
+rust-version = "1.81"
 
 [dependencies]
 actix-http = "3"
@@ -19,15 +19,15 @@ actix-router = "0.5"
 actix-web = "4"
 derive_more = { version = "1.0", features = ["as_ref", "deref", "deref_mut", "display", "from"] }
 futures = "0.3"
-garde = { version = "0.20", features = ["derive", "serde"] }
+garde = { version = "0.22", features = ["derive", "serde"] }
 log = "0.4"
 mime = "0.3"
 pin-project-lite = "0.2"
 serde = "1"
 serde_urlencoded = "0.7"
-thiserror = "1.0"
+thiserror = "2.0"
 
-actix-web-lab = { version = "0.22", optional = true }
+actix-web-lab = { version = "0.23", optional = true }
 
 serde_qs = { version = "0.13", optional = true }
 
@@ -37,7 +37,7 @@ serde_qs = ["dep:serde_qs"]
 
 [dev-dependencies]
 actix-test = "0.1"
-tokio = { version = "1.40", features = ["macros"], default-features = false }
+tokio = { version = "1.43", features = ["macros"], default-features = false }
 
 [lints.rust]
 unsafe_code = "forbid"
@@ -50,7 +50,7 @@ unused_import_braces = "warn"
 unused-lifetimes = "warn"
 unused_macro_rules = "warn"
 unused_qualifications = "warn"
-unused_tuple_struct_fields = "warn"
+dead_code = "warn"
 
 [lints.clippy]
 bool_to_int_with_if = "warn"
