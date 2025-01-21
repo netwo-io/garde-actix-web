@@ -19,7 +19,7 @@ actix-router = "0.5"
 actix-web = "4"
 derive_more = { version = "1.0", features = ["as_ref", "deref", "deref_mut", "display", "from"] }
 futures = "0.3"
-garde = { version = "0.20", features = ["derive", "serde"] }
+garde = { version = "0.21", features = ["derive", "serde"] }
 log = "0.4"
 mime = "0.3"
 pin-project-lite = "0.2"
@@ -50,7 +50,7 @@ unused_import_braces = "warn"
 unused-lifetimes = "warn"
 unused_macro_rules = "warn"
 unused_qualifications = "warn"
-unused_tuple_struct_fields = "warn"
+dead_code = "warn"
 
 [lints.clippy]
 bool_to_int_with_if = "warn"
