@@ -4,20 +4,20 @@ description = "Actix-web garde wrapper"
 readme = "README.md"
 keywords = ["garde", "actix", "actix-web", "validation"]
 categories = ["web-programming"]
-version = "0.11.0"
+version = "0.12.0"
 
 authors = ["Netwo <oss@netwo.com>"]
-edition = "2021"
+edition = "2024"
 repository = "https://github.com/netwo-io/garde-actix-web"
 documentation = "https://docs.rs/garde-actix-web/"
 license = "MIT"
-rust-version = "1.81"
+rust-version = "1.85"
 
 [dependencies]
 actix-http = "3"
 actix-router = "0.5"
 actix-web = "4"
-derive_more = { version = "1.0", features = ["as_ref", "deref", "deref_mut", "display", "from"] }
+derive_more = { version = "2.0", features = ["as_ref", "deref", "deref_mut", "display", "from"] }
 futures = "0.3"
 garde = { version = "0.22", features = ["derive", "serde"] }
 log = "0.4"
@@ -27,9 +27,9 @@ serde = "1"
 serde_urlencoded = "0.7"
 thiserror = "2.0"
 
-actix-web-lab = { version = "0.23", optional = true }
+actix-web-lab = { version = "0.24", optional = true }
 
-serde_qs = { version = "0.13", optional = true }
+serde_qs = { version = "0.15", optional = true }
 
 [features]
 lab_query = ["dep:actix-web-lab"]
@@ -37,7 +37,7 @@ serde_qs = ["dep:serde_qs"]
 
 [dev-dependencies]
 actix-test = "0.1"
-tokio = { version = "1.43", features = ["macros"], default-features = false }
+tokio = { version = "1.44", features = ["macros"], default-features = false }
 
 [lints.rust]
 unsafe_code = "forbid"

@@ -72,7 +72,7 @@ mod test {
   use crate::web::{Query, QueryConfig};
   use actix_http::StatusCode;
   use actix_web::error::InternalError;
-  use actix_web::test::{call_service, init_service, TestRequest};
+  use actix_web::test::{TestRequest, call_service, init_service};
   use actix_web::web::{post, resource};
   use actix_web::{App, HttpResponse};
   use garde::Validate;

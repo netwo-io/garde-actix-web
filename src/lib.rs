@@ -4,8 +4,8 @@
 //!
 //! ```toml
 //! [dependencies]
-//! garde = "0.18"
-//! garde-actix-web = "0.7"
+//! garde = "0.22"
+//! garde-actix-web = "0.12"
 //! ```
 //!
 //! # Usage example
@@ -14,7 +14,7 @@
 //!
 //! Your types must implement `Validate` from `garde`. Validation happens during actix's `FromRequest` invocation.
 //!
-//! If payload is invalid, a 400 error is returned (404 for Path).
+//! If the payload is invalid, a 400 error is returned (404 for Path).
 //!
 //! Custom error handling can be implemented with an extractor config (`garde_actix_web::web::QueryConfig` in place of `actix_web::web::QueryConfig` for example).
 //!
@@ -55,11 +55,14 @@
 //! | `0.18`        | `0.13`           | `0.7.x`                 |
 //! | `0.19`        | `0.13`           | `0.8.x`                 |
 //! | `0.20`        | `0.13`           | `0.9.x`                 |
+//! | `0.20`        | `0.13`           | `0.10.x`                |
+//! | `0.22`        | `0.13`           | `0.11.x`                |
+//! | `0.22`        | `0.15`           | `0.12.x`                |
 
 #![forbid(unsafe_code)]
 
-use actix_web::web::Data;
 use actix_web::HttpRequest;
+use actix_web::web::Data;
 use garde::Validate;
 
 pub mod error;
