@@ -7,10 +7,10 @@ use std::sync::Arc;
 
 use crate::validate_for_request;
 use derive_more::{AsRef, Deref, DerefMut, Display, From};
-use futures::future::{err, ok, Ready};
+use futures::future::{Ready, err, ok};
 use garde::Validate;
-use serde::de::DeserializeOwned;
 use serde::Deserialize;
+use serde::de::DeserializeOwned;
 
 /// Drop in replacement for [actix_web::web::Path](https://docs.rs/actix-web/latest/actix_web/web/struct.Path.html)
 #[derive(Debug, PartialEq, Eq, PartialOrd, Ord, Deref, DerefMut, AsRef, Display, From)]
@@ -89,7 +89,7 @@ mod test {
   use crate::web::{Path, PathConfig};
   use actix_http::StatusCode;
   use actix_web::error::InternalError;
-  use actix_web::test::{call_service, init_service, TestRequest};
+  use actix_web::test::{TestRequest, call_service, init_service};
   use actix_web::web::{post, resource};
   use actix_web::{App, HttpResponse};
   use garde::Validate;

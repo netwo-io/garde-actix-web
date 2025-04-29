@@ -4,7 +4,7 @@ use actix_web::dev::Payload;
 use actix_web::error::Error;
 use actix_web::{FromRequest, HttpRequest};
 use derive_more::{AsRef, Deref, DerefMut, Display, From};
-use futures::future::{err, ok, Ready};
+use futures::future::{Ready, err, ok};
 use garde::Validate;
 
 /// Drop in replacement for [actix_web::web::Header](https://docs.rs/actix-web/latest/actix_web/web/struct.Header.html)
@@ -73,7 +73,7 @@ mod test {
       msg
         .headers()
         .get(Self::name())
-        .ok_or_else(|| ParseError::Header)
+        .ok_or(ParseError::Header)
         .and_then(|v| v.to_str().map_err(|_| ParseError::Header))
         .and_then(|v| v.parse::<u8>().map_err(|_| ParseError::Header))
         .map(|v| HeaderData { age: v })

@@ -1,13 +1,13 @@
 use actix_http::Payload;
 use actix_web::web::UrlEncoded;
-use actix_web::{web, Error, FromRequest, HttpRequest};
-use serde::{de::DeserializeOwned, Serialize};
+use actix_web::{Error, FromRequest, HttpRequest, web};
+use serde::{Serialize, de::DeserializeOwned};
 use std::rc::Rc;
 
 use crate::validate_for_request;
 use derive_more::{AsRef, Deref, DerefMut, Display, From};
-use futures::future::LocalBoxFuture;
 use futures::FutureExt;
+use futures::future::LocalBoxFuture;
 use garde::Validate;
 
 /// Drop in replacement for [actix_web::web::Form](https://docs.rs/actix-web/latest/actix_web/web/struct.Form.html)
@@ -118,7 +118,7 @@ mod test {
   use crate::web::{Form, FormConfig};
   use actix_http::StatusCode;
   use actix_web::error::InternalError;
-  use actix_web::test::{call_service, init_service, TestRequest};
+  use actix_web::test::{TestRequest, call_service, init_service};
   use actix_web::web::{post, resource};
   use actix_web::{App, HttpResponse};
   use garde::Validate;

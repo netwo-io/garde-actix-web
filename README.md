@@ -25,7 +25,7 @@ Actix-web wrapper for [garde](https://github.com/jprochazk/garde), a Rust valida
 ```toml
 [dependencies]
 garde = "0.22"
-garde-actix-web = "0.11"
+garde-actix-web = "0.12"
 ```
 
 ### Usage example
@@ -34,7 +34,7 @@ Simply use `garde-actix-web` exposed types as a drop in for actix types.
 
 Your types must implement `Validate` from `garde`. Validation happens during actix's `FromRequest` invocation.
 
-If payload is invalid, a 400 error is returned (404 for Path).
+If the payload is invalid, a 400 error is returned (404 for Path).
 
 Custom error handling can be implemented with an extractor config (`garde_actix_web::web::QueryConfig` in place
 of `actix_web::web::QueryConfig` for example).
@@ -77,6 +77,7 @@ Context needs to be provided through actix's `data` or `app_data`, if not found 
 | `0.20`        | `0.13`           | `0.9.x`                 |
 | `0.20`        | `0.13`           | `0.10.x`                |
 | `0.22`        | `0.13`           | `0.11.x`                |
+| `0.22`        | `0.15`           | `0.12.x`                |
 
 ### About us
 

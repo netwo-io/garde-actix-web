@@ -2,9 +2,9 @@ use std::sync::Arc;
 
 use actix_web::dev::Payload;
 use actix_web::error::QueryPayloadError;
-use actix_web::{web, Error, FromRequest, HttpRequest};
+use actix_web::{Error, FromRequest, HttpRequest, web};
 use derive_more::{AsRef, Deref, DerefMut, Display, From};
-use futures::future::{err, ok, LocalBoxFuture, Ready};
+use futures::future::{LocalBoxFuture, Ready, err, ok};
 use futures::{FutureExt, StreamExt};
 use garde::Validate;
 use serde::de::DeserializeOwned;
@@ -96,7 +96,8 @@ where
     let req_copy2 = req.clone();
     let query_config: QsQueryConfig = req
       .app_data::<QsQueryConfig>()
-      .unwrap_or(&QsQueryConfig::default())
+      .cloned()
+      .unwrap_or_else(QsQueryConfig::default)
       .clone();
 
     async move {
@@ -158,7 +159,7 @@ impl QsQueryConfig {
 mod test {
   use actix_http::StatusCode;
   use actix_web::error::InternalError;
-  use actix_web::test::{call_service, init_service, TestRequest};
+  use actix_web::test::{TestRequest, call_service, init_service};
   use actix_web::web::{post, resource};
   use actix_web::{App, HttpResponse};
   use garde::Validate;

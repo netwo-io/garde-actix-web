@@ -3,7 +3,7 @@ use actix_web::dev::Payload;
 use actix_web::error::QueryPayloadError;
 use actix_web::{Error, FromRequest, HttpRequest};
 use derive_more::{AsRef, Deref, DerefMut, Display, From};
-use futures::future::{err, ok, Ready};
+use futures::future::{Ready, err, ok};
 use garde::Validate;
 use serde::de::DeserializeOwned;
 use std::sync::Arc;
@@ -90,7 +90,7 @@ mod test {
   use crate::web::{Query, QueryConfig};
   use actix_http::StatusCode;
   use actix_web::error::InternalError;
-  use actix_web::test::{call_service, init_service, TestRequest};
+  use actix_web::test::{TestRequest, call_service, init_service};
   use actix_web::web::{post, resource};
   use actix_web::{App, HttpResponse};
   use garde::Validate;
