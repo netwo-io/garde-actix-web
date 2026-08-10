@@ -3,7 +3,7 @@ use actix_web::dev::Payload;
 use actix_web::error::QueryPayloadError;
 use actix_web::{Error, FromRequest, HttpRequest};
 use derive_more::{AsRef, Deref, DerefMut, Display, From};
-use futures::future::{Ready, err, ok};
+use futures_util::future::{Ready, err, ok};
 use garde::Validate;
 use serde::de::DeserializeOwned;
 use std::sync::Arc;

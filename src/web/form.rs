@@ -6,8 +6,8 @@ use std::rc::Rc;
 
 use crate::validate_for_request;
 use derive_more::{AsRef, Deref, DerefMut, Display, From};
-use futures::FutureExt;
-use futures::future::LocalBoxFuture;
+use futures_util::FutureExt;
+use futures_util::future::LocalBoxFuture;
 use garde::Validate;
 
 /// Drop in replacement for [actix_web::web::Form](https://docs.rs/actix-web/latest/actix_web/web/struct.Form.html)

@@ -4,7 +4,7 @@ use actix_web::dev::Payload;
 use actix_web::error::Error;
 use actix_web::{FromRequest, HttpRequest};
 use derive_more::{AsRef, Deref, DerefMut, Display, From};
-use futures::future::{Ready, err, ok};
+use futures_util::future::{Ready, err, ok};
 use garde::Validate;
 
 /// Drop in replacement for [actix_web::web::Header](https://docs.rs/actix-web/latest/actix_web/web/struct.Header.html)
