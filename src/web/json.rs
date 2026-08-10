@@ -1,8 +1,8 @@
 use crate::validate_for_request;
 use actix_web::dev::{JsonBody, Payload};
 use actix_web::{Error, FromRequest, HttpRequest, web};
-use futures::FutureExt;
-use futures::future::LocalBoxFuture;
+use futures_util::FutureExt;
+use futures_util::future::LocalBoxFuture;
 use garde::Validate;
 use serde::de::DeserializeOwned;
 use std::sync::Arc;

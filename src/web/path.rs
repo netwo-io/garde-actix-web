@@ -7,7 +7,7 @@ use std::sync::Arc;
 
 use crate::validate_for_request;
 use derive_more::{AsRef, Deref, DerefMut, Display, From};
-use futures::future::{Ready, err, ok};
+use futures_util::future::{Ready, err, ok};
 use garde::Validate;
 use serde::Deserialize;
 use serde::de::DeserializeOwned;

@@ -3,7 +3,7 @@ use super::json::Json;
 use actix_web::dev::Payload;
 use actix_web::web::Bytes;
 use actix_web::{Error, FromRequest, HttpRequest};
-use futures::ready;
+use futures_util::ready;
 use pin_project_lite::pin_project;
 use std::future::Future;
 use std::mem;
