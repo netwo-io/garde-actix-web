@@ -44,7 +44,7 @@ where
     Box::pin(async move {
       actix_web_lab::extract::Query::from_request(&req, &mut payload)
         .await
-        .map_err(|e| QueryPayloadError::Deserialize(de::Error::custom(format!("{}", e))).into())
+        .map_err(|e| QueryPayloadError::Deserialize(de::Error::custom(format!("{e}"))).into())
         .and_then(|data| {
           let req = req_copy;
           validate_for_request(data.0, &req)
