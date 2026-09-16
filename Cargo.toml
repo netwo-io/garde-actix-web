@@ -11,7 +11,7 @@ edition = "2024"
 repository = "https://github.com/netwo-io/garde-actix-web"
 documentation = "https://docs.rs/garde-actix-web/"
 license = "MIT"
-rust-version = "1.85"
+rust-version = "1.88"
 
 [dependencies]
 actix-http = "3"
@@ -27,7 +27,7 @@ serde = "1"
 serde_urlencoded = "0.7"
 thiserror = "2.0"
 
-actix-web-lab = { version = "0.24", optional = true }
+actix-web-lab = { version = "0.26.0", optional = true }
 
 serde_qs = { version = "0.15", optional = true }
 
@@ -85,6 +85,7 @@ fn_params_excessive_bools = "warn"
 fn_to_numeric_cast_any = "warn"
 from_iter_instead_of_collect = "warn"
 implicit_clone = "warn"
+indexing_slicing = "warn"
 inefficient_to_string = "warn"
 invalid_upcast_comparisons = "warn"
 items_after_statements = "warn"
@@ -106,7 +107,6 @@ manual_let_else = "warn"
 manual_ok_or = "warn"
 many_single_char_names = "warn"
 match_bool = "warn"
-match_on_vec_items = "warn"
 match_wild_err_arm = "warn"
 match_wildcard_for_single_variants = "warn"
 maybe_infinite_iter = "warn"
