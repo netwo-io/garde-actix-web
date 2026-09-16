@@ -97,8 +97,7 @@ where
     let query_config: QsQueryConfig = req
       .app_data::<QsQueryConfig>()
       .cloned()
-      .unwrap_or_else(QsQueryConfig::default)
-      .clone();
+      .unwrap_or_else(QsQueryConfig::default_form);
 
     async move {
       let mut bytes = web::BytesMut::new();
@@ -134,6 +133,10 @@ type ActixErrorHandler = Option<Arc<dyn Fn(crate::error::Error, &HttpRequest) ->
 
 /// Replacement for [serde_qs::actix::QsQueryConfig](https://docs.rs/serde_qs/latest/serde_qs/actix/struct.QsQueryConfig.html)
 /// Error handler must map from an `garde_actix_web::error::Error`
+///
+/// When no config is registered, [`QsQuery`] uses query-string encoding and [`QsForm`] uses form encoding
+/// (see [`serde_qs::Config::use_form_encoding`]). Once a config is registered, its `qs_config` is used as is
+/// by both extractors.
 #[derive(Clone, Default)]
 pub struct QsQueryConfig {
   err_handler: ActixErrorHandler,
@@ -141,6 +144,15 @@ pub struct QsQueryConfig {
 }
 
 impl QsQueryConfig {
+  /// Default config used by [`QsForm`] when none is provided, mirroring `serde_qs`:
+  /// form bodies are percent-encoded, so `use_form_encoding` is enabled.
+  fn default_form() -> Self {
+    Self {
+      err_handler: None,
+      qs_config: Config::new().use_form_encoding(true),
+    }
+  }
+
   pub fn error_handler<F>(mut self, f: F) -> Self
   where
     F: Fn(crate::error::Error, &HttpRequest) -> Error + Send + Sync + 'static,
@@ -165,7 +177,7 @@ mod test {
   use garde::Validate;
   use serde::{Deserialize, Serialize};
 
-  use crate::web::{Form, FormConfig, QsQuery, QsQueryConfig};
+  use crate::web::{Form, FormConfig, QsForm, QsQuery, QsQueryConfig};
 
   #[derive(Debug, PartialEq, Validate, Serialize, Deserialize)]
   struct QueryData {
@@ -193,6 +205,12 @@ mod test {
     age: u8,
   }
 
+  #[derive(Debug, PartialEq, Validate, Serialize, Deserialize)]
+  struct NestedFormData {
+    #[garde(dive)]
+    user: FormData,
+  }
+
   #[derive(Default, Debug)]
   struct NumberContext {
     min: u8,
@@ -210,6 +228,10 @@ mod test {
   }
 
   async fn test_form_handler(_: Form<FormData>) -> HttpResponse {
+    HttpResponse::Ok().finish()
+  }
+
+  async fn test_qs_form_handler(_: QsForm<NestedFormData>) -> HttpResponse {
     HttpResponse::Ok().finish()
   }
 
@@ -375,5 +397,56 @@ mod test {
       .to_request();
     let resp = call_service(&app, req).await;
     assert_eq!(resp.status(), StatusCode::OK);
+  }
+
+  #[tokio::test]
+  async fn test_qs_form_validation() {
+    let app = init_service(App::new().service(resource("/").route(post().to(test_qs_form_handler)))).await;
+
+    // Form bodies percent-encode square brackets
+    let req = TestRequest::post()
+      .uri("/")
+      .insert_header(("content-type", "application/x-www-form-urlencoded"))
+      .set_payload("user%5Bage%5D=24")
+      .to_request();
+    let resp = call_service(&app, req).await;
+    assert_eq!(resp.status(), StatusCode::OK);
+
+    let req = TestRequest::post()
+      .uri("/")
+      .insert_header(("content-type", "application/x-www-form-urlencoded"))
+      .set_payload("user%5Bage%5D=30")
+      .to_request();
+    let resp = call_service(&app, req).await;
+    assert_eq!(resp.status(), StatusCode::BAD_REQUEST);
+  }
+
+  #[tokio::test]
+  async fn test_qs_form_validation_custom_config() {
+    let app = init_service(
+      App::new()
+        .app_data(
+          QsQueryConfig::default()
+            .error_handler(|err, _req| InternalError::from_response(err, HttpResponse::Conflict().finish()).into()),
+        )
+        .service(resource("/").route(post().to(test_qs_form_handler))),
+    )
+    .await;
+
+    let req = TestRequest::post()
+      .uri("/")
+      .insert_header(("content-type", "application/x-www-form-urlencoded"))
+      .set_payload("user[age]=24")
+      .to_request();
+    let resp = call_service(&app, req).await;
+    assert_eq!(resp.status(), StatusCode::OK);
+
+    let req = TestRequest::post()
+      .uri("/")
+      .insert_header(("content-type", "application/x-www-form-urlencoded"))
+      .set_payload("user[age]=30")
+      .to_request();
+    let resp = call_service(&app, req).await;
+    assert_eq!(resp.status(), StatusCode::CONFLICT);
   }
 }
