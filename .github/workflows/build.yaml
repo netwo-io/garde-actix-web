@@ -52,7 +52,7 @@ jobs:
           rustup component add clippy
           cargo clippy --no-deps --all-features --tests -- -D warnings
 
-      - uses: EmbarkStudios/cargo-deny-action@v1
+      - uses: EmbarkStudios/cargo-deny-action@v2
         with:
           commande: check licenses sources advisories
 
