@@ -19,7 +19,7 @@ actix-router = "0.5"
 actix-web = "4"
 derive_more = { version = "2.0", features = ["as_ref", "deref", "deref_mut", "display", "from"] }
 futures = "0.3"
-garde = { version = "0.22", features = ["derive", "serde"] }
+garde = { version = "0.23", features = ["derive", "serde"] }
 log = "0.4"
 mime = "0.3"
 pin-project-lite = "0.2"
