@@ -24,8 +24,8 @@ Actix-web wrapper for [garde](https://github.com/jprochazk/garde), a Rust valida
 
 ```toml
 [dependencies]
-garde = "0.22"
-garde-actix-web = "0.12"
+garde = "0.23"
+garde-actix-web = "0.13"
 ```
 
 ### Usage example
@@ -63,6 +63,12 @@ Context needs to be provided through actix's `data` or `app_data`, if not found 
 |------------|----------------------------------------------------------------|-------------------------------------------------|
 | `serde_qs` | Enables the usage of `garde` for `serde_qs::actix::QsQuery<T>` | [`serde_qs`](https://crates.io/crates/serde_qs) |
 
+⚠️ Since `0.13`, the `serde_qs` feature relies on `serde_qs` `1.x`, which was a full rewrite of the crate. `serde_qs::Config`
+no longer has a `strict_mode`: use `Config::new().use_form_encoding(bool)` instead and pass it through
+`QsQueryConfig::qs_config`. Without an explicit `QsQueryConfig`, `QsQuery` uses query-string encoding while `QsForm` uses
+form encoding (percent-encoded square brackets), like `serde_qs`. See the
+[`serde_qs` migration guide](https://github.com/samscott89/serde_qs/blob/main/CHANGELOG.md#breaking-changes--migration-guide).
+
 ### Compatibility matrix
 
 | garde version | serde_qs version | garde-actix-web-version |
@@ -78,6 +84,7 @@ Context needs to be provided through actix's `data` or `app_data`, if not found 
 | `0.20`        | `0.13`           | `0.10.x`                |
 | `0.22`        | `0.13`           | `0.11.x`                |
 | `0.22`        | `0.15`           | `0.12.x`                |
+| `0.23`        | `1.1`            | `0.13.x`                |
 
 ### About us
 
